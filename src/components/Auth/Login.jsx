@@ -34,7 +34,10 @@ const Login = () => {
       );
 
       localStorage.setItem('token', data.token);
+      console.log(data);
+      console.log(data.user);
       setUser(data.user);
+
       setIsAuthorized(true);
       toast.success(data.message);
       

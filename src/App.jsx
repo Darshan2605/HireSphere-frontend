@@ -15,7 +15,7 @@ import MyJobs from "./components/Job/MyJobs";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import NotFound from "./components/NotFound/NotFound";
-import JobOpenings from "./components/Job/JobOpenings";
+import JobOpenings from "./components/Home/JobOpenings";
 
 
 
@@ -63,16 +63,17 @@ const App = () => {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/login" element={!isAuthorized ? <Login /> : <Navigate to="/" />} />
-        <Route path="/register" element={!isAuthorized ? <Register /> : <Navigate to="/" />} />
-        <Route path="/" element={isAuthorized ? <Home /> : <Navigate to="/login" />} />
-        <Route path="/job/getall" element={isAuthorized ? <Jobs /> : <Navigate to="/login" />} />
-        <Route path="/job/:id" element={isAuthorized ? <JobDetails /> : <Navigate to="/login" />} />
-        <Route path="/application/:id" element={isAuthorized ? <Application /> : <Navigate to="/login" />} />
-        <Route path="/applications/me" element={isAuthorized ? <MyApplications /> : <Navigate to="/login" />} />
-        <Route path="/job/post" element={isAuthorized ? <PostJob /> : <Navigate to="/login" />} />
-        <Route path="/job/me" element={isAuthorized ? <MyJobs /> : <Navigate to="/login" />} />
-        <Route path="/JobOpenings" element={isAuthorized ? <JobOpenings /> : <Navigate to="/login" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/job/getall" element={<Jobs />} />
+        <Route path="/job/:id" element={<JobDetails />} />
+        <Route path="/application/:id" element={<Application />} />
+        <Route path="/applications/me" element={<MyApplications />} />
+        <Route path="/job/post" element={<PostJob />} />
+        <Route path="/job/me" element={<MyJobs />} />
+        {/* Remove JobOpenings route if component doesn't exist */}
+         <Route path="/JobOpenings" element={<JobOpenings />} /> 
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
