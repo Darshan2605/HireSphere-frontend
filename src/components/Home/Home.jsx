@@ -4,9 +4,7 @@ import { Context } from "../../main";
 import { Navigate } from "react-router-dom";
 import HeroSection from "./HeroSection";
 import HowItWorks from "./HowItWorks";
-import PopularCategories from "./PopularCategories";
-import PopularCompanies from "./PopularCompanies";
-import JobOpenings from "./JobOpenings";
+
 
 const Home = () => {
   const { isAuthorized } = useContext(Context);
