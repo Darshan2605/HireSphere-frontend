@@ -17,6 +17,10 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (!email || !password || !role) {
+      return toast.error("Please fill all fields");
+    }
+
     try {
       const { data } = await axios.post(
         "https://hire-sphere-backend.vercel.app/api/v1/user/login",
@@ -28,21 +32,27 @@ const Login = () => {
           withCredentials: true,
         }
       );
+
+      localStorage.setItem('token', data.token);
+      setUser(data.user);
+      setIsAuthorized(true);
       toast.success(data.message);
+      
       setEmail("");
       setPassword("");
       setRole("");
-      setUser(data.user);
-      setIsAuthorized(true);
       navigate("/");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Login failed");
     }
   };
 
   if (isAuthorized) {
     return <Navigate to="/" />;
   }
+
+
+
 
   return (
     <>

@@ -1,10 +1,8 @@
 import React, { useContext, useState } from "react";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaPencilAlt, FaPhoneFlip } from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLock2Fill } from "react-icons/ri";
-import { FaPencilAlt } from "react-icons/fa";
-import { FaPhoneFlip } from "react-icons/fa6";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
@@ -15,11 +13,17 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const navigate = useNavigate();
 
-  const { isAuthorized, setIsAuthorized, user, setUser } = useContext(Context);
+  const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    
+    if (!name || !email || !password || !phone || !role) {
+      return toast.error("Please fill all fields");
+    }
+
     try {
       const { data } = await axios.post(
         "https://hire-sphere-backend.vercel.app/api/v1/user/register",
@@ -31,21 +35,28 @@ const Register = () => {
           withCredentials: true,
         }
       );
+
+      localStorage.setItem('token', data.token);
+      setUser(data.user);
+      setIsAuthorized(true);
       toast.success(data.message);
+
       setName("");
       setEmail("");
       setPassword("");
       setPhone("");
       setRole("");
-      setIsAuthorized(true);
+      
+      navigate("/");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Registration failed");
     }
   };
 
-  if(isAuthorized){
-    return <Navigate to={'/'}/>
+  if (isAuthorized) {
+    return <Navigate to="/" />;
   }
+
 
 
   return (
