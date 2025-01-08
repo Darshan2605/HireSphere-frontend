@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { FaRegUser, FaPencilAlt, FaPhoneFlip } from "react-icons/fa";
+import { FaRegUser, FaPencilAlt, FaPhone } from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLock2Fill } from "react-icons/ri";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -113,7 +113,7 @@ const Register = () => {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
-                <FaPhoneFlip />
+                <FaPhone />
               </div>
             </div>
             <div className="inputTag">
